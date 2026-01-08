@@ -251,7 +251,7 @@ body {
 
 .hero-greeting {
     font-size: 1.2rem;
-    color: #7c3aed;
+    color: #ffffff;
     font-weight: 500;
     margin-bottom: 1rem;
     opacity: 0;
@@ -278,7 +278,7 @@ body {
 }
 
 .name-line.accent {
-    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -304,7 +304,7 @@ body {
 .title-text {
     display: inline-block;
     font-size: 1.1rem;
-    color: var(--text-muted);
+    color: #ffffff;
     font-weight: 500;
 }
 
@@ -314,7 +314,7 @@ body {
 
 .hero-description {
     font-size: 1.15rem;
-    color: var(--text-muted);
+    color: #ffffff;
     max-width: 600px;
     margin: 0 auto 2.5rem;
     opacity: 0;
