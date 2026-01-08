@@ -27,7 +27,7 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    line-height: 1.7;
+    line-height: 1.9;
     overflow-x: hidden;
 }
 
@@ -184,12 +184,12 @@ body {
 
 /* Hero Section */
 .hero {
-
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 6rem 5% 12rem;
+    padding: 8rem 5% 4rem;
     overflow: hidden;
     background: #0a0a0a;
 }
@@ -251,7 +251,7 @@ body {
 
 .hero-greeting {
     font-size: 1.2rem;
-    color: #ffffff;
+    color: #7c3aed;
     font-weight: 500;
     margin-bottom: 1rem;
     opacity: 0;
@@ -278,7 +278,7 @@ body {
 }
 
 .name-line.accent {
-    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -327,7 +327,6 @@ body {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 1rem;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
     animation-delay: 1.2s;
@@ -1122,7 +1121,7 @@ footer p {
     }
     
     .hero {
-        padding: 4rem 5% 2rem;
+        padding: 5rem 5% 2rem;
         min-height: auto;
     }
     
@@ -1140,7 +1139,7 @@ footer p {
     }
     
     .hero-description {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         font-size: 0.95rem;
     }
     
