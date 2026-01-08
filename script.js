@@ -177,8 +177,8 @@ if (contactForm) {
         btn.disabled = true;
         
         try {
-            // Send form data to PHP backend
-            const response = await fetch('send_email.php', {
+            // Send form data to PHP backend (Vercel serverless function)
+            const response = await fetch('/api/send_email.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
