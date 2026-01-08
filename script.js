@@ -177,32 +177,35 @@ if (contactForm) {
         btn.disabled = true;
         
         try {
-            // Send form data to Vercel serverless function
-            const response = await fetch('/api/send-email', {
+            // Send form data to PHP backend
+            const response = await fetch('send_email.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify({
+                body: new URLSearchParams({
                     name: name,
                     email: email,
                     message: message
                 })
             });
             
-            // Parse JSON response (response body can only be read once)
-            let result;
-            try {
-                result = await response.json();
-            } catch (parseError) {
-                console.error('Error parsing JSON response:', parseError);
-                throw new Error('Invalid JSON response from server. Please try again or contact me directly at asedaquarshie@gmail.com');
-            }
+            // Get response text first (can only read once)
+            const responseText = await response.text();
             
             // Check if response is OK
             if (!response.ok) {
-                console.error('Server response:', result);
-                throw new Error(result.message || `HTTP error! status: ${response.status}`);
+                console.error('Server response:', responseText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // Try to parse JSON response
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error('Response text:', responseText);
+                throw new Error('Invalid JSON response from server. Check browser console for details.');
             }
             
             if (result.success) {
