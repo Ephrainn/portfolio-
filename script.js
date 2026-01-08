@@ -159,27 +159,99 @@ if (aboutStats) {
 // Form handling
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerHTML;
+        const originalBg = btn.style.background;
         
+        // Get form data
+        const formData = new FormData(contactForm);
+        const name = contactForm.querySelector('#name').value.trim();
+        const email = contactForm.querySelector('#email').value.trim();
+        const message = contactForm.querySelector('#message').value.trim();
+        
+        // Update button state
         btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
         
-        // Simulate form submission
-        setTimeout(() => {
-            btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+        try {
+            // Send form data to PHP backend
+            const response = await fetch('send_email.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            });
             
+            // Get response text first (can only read once)
+            const responseText = await response.text();
+            
+            // Check if response is OK
+            if (!response.ok) {
+                console.error('Server response:', responseText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // Try to parse JSON response
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error('Response text:', responseText);
+                throw new Error('Invalid JSON response from server. Check browser console for details.');
+            }
+            
+            if (result.success) {
+                // Success state
+                btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
+                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = originalBg;
+                    btn.disabled = false;
+                }, 3000);
+            } else {
+                // Error state
+                btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
+                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                
+                // Show error message (you can customize this)
+                alert(result.message || 'Failed to send message. Please try again.');
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = originalBg;
+                    btn.disabled = false;
+                }, 3000);
+            }
+        } catch (error) {
+            // Network or other error
+            console.error('Error:', error);
+            btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
+            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            
+            alert('Network error. Please check your connection and try again, or contact me directly at asedaquarshie@gmail.com');
+            
+            // Reset button after 3 seconds
             setTimeout(() => {
                 btn.innerHTML = originalText;
-                btn.style.background = '';
+                btn.style.background = originalBg;
                 btn.disabled = false;
-                contactForm.reset();
-            }, 2000);
-        }, 1500);
+            }, 3000);
+        }
     });
 }
 
