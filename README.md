@@ -6,22 +6,18 @@ A personal portfolio website built with HTML, CSS and JavaScript, plus a small P
 - `index.html` — main site
 - `style.css` — styles
 - `script.js` — frontend JS
-- `CV.docx` — downloadable CV (note: path must match the link in `index.html`)
+- `CV.docx` — downloadable CV (now linked correctly from `index.html`)
 - `send_email.php` — backend email handler (uses PHPMailer)
 - `PHPMailer-7.0.1/` — PHPMailer library
 - `VERCEL_PHP_SETUP.md`, `QUICK_START.md`, `PHPMailer_Setup_Guide.md` — guides and docs
 
-## Problem noticed: Download CV not working
-The "Download CV" button in `index.html` points to `assets/CV.docx` but the file is currently at the repository root (`CV.docx`). This causes a broken link or 404 when users try to download.
+## Status: CV download issue — RESOLVED
+The "Download CV" button previously pointed to `assets/CV.docx` while the file was at the repository root. I updated `index.html` so the button links to `CV.docx` at the repository root.
 
-Fix options:
-1. Move the file into `assets/`:
-   - git mv CV.docx assets/CV.docx
-   - git commit -m "Move CV to assets to fix download link"
-2. Or update `index.html` to point to the correct path:
-   - Change `<a href="assets/CV.docx" ...>` to `<a href="CV.docx" ...>` (or `./CV.docx`)
+- Commit: `1dd8a5dc615fbaa36901be4f10aafc43882d9cf8`
+- What changed: `index.html` download link updated from `assets/CV.docx` -> `CV.docx`.
 
-Choose whichever matches your preferred asset organization. If you're using Vercel or another host, ensure static files are served from the chosen location.
+If you prefer to keep all static assets in an `assets/` or `public/` folder, move `CV.docx` there and update `index.html` accordingly.
 
 ## Local development
 1. Clone the repo:
@@ -48,14 +44,15 @@ See `PHPMailer_Setup_Guide.md` for more details.
 
 ## Security & privacy
 - If the CV contains personal or sensitive data, confirm visibility settings for the deployed site and repository.
-- Remove any credentials from the repo history if they were accidentally committed (consider using the GitHub secret scanning and rotate credentials).
+- Remove any credentials from the repo history if they were accidentally committed (consider using GitHub secret scanning and rotate credentials).
 
 ## Suggested next steps
-- Decide whether to move `CV.docx` into `assets/` or update the link in `index.html`.
+- Option A (recommended): Keep the CV at the repository root (current state) OR move it to `assets/`/`public/` to centralize static assets.
 - I can:
-  - create and push a small commit to move the CV and update index.html, OR
-  - open and review `send_email.php` in detail and propose precise secure changes.
-  If you'd like me to push changes, reply and I will create the commit and PR (please confirm).
+  - Move `CV.docx` into `assets/` and update `index.html` if you prefer that organization, OR
+  - Do a line-by-line security review and hardening of `send_email.php` and create a secure patch.
+
+If you'd like me to proceed with either action, tell me and I will create the commit and PR.
 
 ## License
 Add your desired license here (e.g., MIT).
