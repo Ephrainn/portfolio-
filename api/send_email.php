@@ -109,14 +109,14 @@ if ($usePHPMailer) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'asedaquarshie@gmail.com'; // Your Gmail address
-            $mail->Password = 'lmyvgstnphjiigeh'; // Your Gmail App Password (16 characters)
+            $mail->Username = getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com';
+            $mail->Password = getenv('GMAIL_PASS') ?: '';
             $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
             $mail->CharSet = 'UTF-8';
 
             // Recipients
-            $mail->setFrom('asedaquarshie@gmail.com', 'Portfolio Contact Form');
+            $mail->setFrom(getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com', 'Portfolio Contact Form');
             $mail->addAddress($to, 'Ephraim Aseda Quarshie');
             $mail->addReplyTo($email, $name);
 
