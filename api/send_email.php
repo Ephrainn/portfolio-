@@ -96,37 +96,37 @@ $usePHPMailer = true; // Set to true to use PHPMailer
 if ($usePHPMailer) {
     // Check if PHPMailer exists (path from /api directory to root)
     $phpmailerPath = __DIR__ . '/../PHPMailer-7.0.1/src/PHPMailer.php';
-    
+
     if (file_exists($phpmailerPath)) {
         require_once __DIR__ . '/../PHPMailer-7.0.1/src/Exception.php';
         require_once __DIR__ . '/../PHPMailer-7.0.1/src/PHPMailer.php';
         require_once __DIR__ . '/../PHPMailer-7.0.1/src/SMTP.php';
-        
+
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-        
+
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'asedaquarshie@gmail.com'; // Your Gmail address
-            $mail->Password   = 'lmyvgstnphjiigeh'; // Your Gmail App Password (16 characters)
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'asedaquarshie@gmail.com'; // Your Gmail address
+            $mail->Password = 'lmyvgstnphjiigeh'; // Your Gmail App Password (16 characters)
             $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
-            $mail->CharSet    = 'UTF-8';
-            
+            $mail->Port = 587;
+            $mail->CharSet = 'UTF-8';
+
             // Recipients
             $mail->setFrom('asedaquarshie@gmail.com', 'Portfolio Contact Form');
             $mail->addAddress($to, 'Ephraim Aseda Quarshie');
             $mail->addReplyTo($email, $name);
-            
+
             // Content
             $mail->isHTML(false);
             $mail->Subject = $subject;
-            $mail->Body    = $emailBody;
-            
+            $mail->Body = $emailBody;
+
             $mail->send();
-            
+
             http_response_code(200);
             echo json_encode([
                 'success' => true,
@@ -157,10 +157,10 @@ if ($usePHPMailer) {
     $headers .= "Reply-To: " . $email . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    
+
     // Send email
     $mailSent = mail($to, $subject, $emailBody, $headers);
-    
+
     if ($mailSent) {
         http_response_code(200);
         echo json_encode([
@@ -177,4 +177,3 @@ if ($usePHPMailer) {
 }
 
 ?>
-

@@ -32,7 +32,8 @@ body {
 }
 
 /* Custom Cursor */
-.cursor, .cursor-follower {
+.cursor,
+.cursor-follower {
     position: fixed;
     border-radius: 50%;
     pointer-events: none;
@@ -41,10 +42,12 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .cursor, .cursor-follower {
+
+    .cursor,
+    .cursor-follower {
         display: block;
     }
-    
+
     .cursor {
         width: 8px;
         height: 8px;
@@ -52,7 +55,7 @@ body {
         transform: translate(-50%, -50%);
         transition: transform 0.1s;
     }
-    
+
     .cursor-follower {
         width: 40px;
         height: 40px;
@@ -60,7 +63,7 @@ body {
         transform: translate(-50%, -50%);
         transition: transform 0.3s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
     }
-    
+
     .cursor-follower.hover {
         width: 60px;
         height: 60px;
@@ -114,8 +117,17 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
 }
 
 .nav-links {
@@ -236,10 +248,23 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(50px, -50px) scale(1.1); }
-    50% { transform: translate(-30px, 30px) scale(0.9); }
-    75% { transform: translate(-50px, -30px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(50px, -50px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(-50px, -30px) scale(1.05);
+    }
 }
 
 .hero-content {
@@ -253,7 +278,7 @@ body {
     font-size: 1.2rem;
     color: #ffffff;
     font-weight: 500;
-    margin-bottom:;
+    margin-bottom: ;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
     animation-delay: 0.2s;
@@ -338,6 +363,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -430,14 +456,34 @@ body {
 }
 
 @keyframes scroll {
-    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px);
+    }
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
 }
 
 .scroll-indicator span {
@@ -1011,10 +1057,10 @@ section {
     pointer-events: none;
 }
 
-.form-group input:focus ~ label,
-.form-group input:valid ~ label,
-.form-group textarea:focus ~ label,
-.form-group textarea:valid ~ label {
+.form-group input:focus~label,
+.form-group input:valid~label,
+.form-group textarea:focus~label,
+.form-group textarea:valid~label {
     top: 0.5rem;
     font-size: 0.75rem;
     color: #7c3aed;
@@ -1072,121 +1118,121 @@ footer p {
         gap: 2rem;
         transition: right 0.5s ease;
     }
-    
+
     .nav-links.active {
         right: 0;
     }
-    
+
     .nav-links a {
         font-size: 1.5rem;
         color: #ffffff;
     }
-    
+
     .burger {
         display: flex;
     }
-    
+
     section {
         padding: 4rem 5%;
     }
-    
+
     .skills,
     .projects {
         padding-left: 0;
         padding-right: 0;
     }
-    
+
     .skills .container,
     .projects .container {
         max-width: 100%;
         padding: 0;
     }
-    
+
     .skills .section-header,
     .projects .section-header {
         padding: 0 5%;
     }
-    
+
     .skills-grid,
     .projects-grid {
         padding-left: 5%;
         padding-right: 5%;
     }
-    
+
     .section-header {
         margin-bottom: 2.5rem;
     }
-    
+
     .scroll-hint {
         display: block;
     }
-    
+
     .hero {
         padding: 5rem 5% 2rem;
         min-height: auto;
     }
-    
+
     .hero-greeting {
         font-size: 1rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .hero-name {
         margin-bottom: 1rem;
     }
-    
+
     .hero-title {
         margin-bottom: 1rem;
     }
-    
+
     .hero-description {
         margin-bottom: 2rem;
         font-size: 0.95rem;
     }
-    
+
     .hero-content {
         padding: 0 1rem;
     }
-    
+
     .hero-description {
         font-size: 1rem;
         padding: 0 0.5rem;
     }
-    
+
     .hero-cta {
         flex-direction: column;
         align-items: center;
         gap: 0.75rem;
     }
-    
+
     .hero-cta .btn {
         width: 100%;
         max-width: 280px;
         justify-content: center;
         padding: 0.75rem 1.5rem;
     }
-    
+
     .scroll-indicator {
         display: none;
     }
-    
+
     .about-stats {
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
-    
+
     .stat-number {
         font-size: 1.8rem;
     }
-    
+
     .stat-suffix {
         font-size: 1rem;
     }
-    
+
     .stat-label {
         font-size: 0.75rem;
     }
-    
+
     .skills-grid {
         display: flex;
         overflow-x: auto;
@@ -1196,17 +1242,17 @@ footer p {
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
-    
+
     .skills-grid::-webkit-scrollbar {
         display: none;
     }
-    
+
     .skill-card {
         flex: 0 0 280px;
         scroll-snap-align: start;
         padding: 1.5rem;
     }
-    
+
     .projects-grid {
         display: flex;
         overflow-x: auto;
@@ -1216,67 +1262,69 @@ footer p {
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
-    
+
     .projects-grid::-webkit-scrollbar {
         display: none;
     }
-    
+
     .project-card {
         flex: 0 0 300px;
         scroll-snap-align: start;
         touch-action: manipulation;
         -webkit-tap-highlight-color: rgba(124, 58, 237, 0.3);
     }
-    
+
     .project-image {
         height: 180px;
     }
-    
+
     .project-info {
         padding: 1.25rem;
     }
-    
+
     .project-info h3 {
         font-size: 1.1rem;
     }
-    
+
     .project-info p {
         font-size: 0.9rem;
     }
+
     .case-study-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+
     .case-block {
         padding: 1.25rem;
     }
-    
+
     .contact-icon {
         width: 45px;
         height: 45px;
         font-size: 1rem;
     }
-    
+
     .contact-text a {
         font-size: 0.9rem;
     }
-    
+
     .social-links {
         justify-content: flex-start;
     }
-    
+
     .social-link {
         width: 40px;
         height: 40px;
         font-size: 1rem;
     }
-    
+
     .form-group input,
     .form-group textarea {
         padding: 1rem 1rem 0.75rem;
         font-size: 0.95rem;
     }
-    
+
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -1287,79 +1335,79 @@ footer p {
     .navbar {
         padding: 1rem 4%;
     }
-    
+
     .logo-text {
         font-size: 1.5rem;
     }
-    
+
     section {
         padding: 3rem 4%;
     }
-    
+
     .hero-name {
         font-size: clamp(2rem, 10vw, 3rem);
     }
-    
+
     .hero-title {
         flex-direction: column;
         gap: 0.25rem;
     }
-    
+
     .title-separator {
         display: none;
     }
-    
+
     .title-text {
         font-size: 0.95rem;
     }
-    
+
     .btn {
         padding: 0.875rem 1.5rem;
         font-size: 0.9rem;
     }
-    
+
     .section-tag {
         padding: 0.4rem 1rem;
         font-size: 0.75rem;
         letter-spacing: 1px;
     }
-    
+
     .about-text p {
         font-size: 1rem;
     }
-    
+
     .about-intro {
         font-size: 1.1rem !important;
     }
-    
+
     .about-stats {
         gap: 0.75rem;
     }
-    
+
     .stat-number {
         font-size: 1.5rem;
     }
-    
+
     .stat-suffix {
         font-size: 0.85rem;
     }
-    
+
     .stat-label {
         font-size: 0.7rem;
     }
-    
+
     .contact-wrapper {
         gap: 2rem;
     }
-    
+
     .contact-intro {
         font-size: 1rem;
     }
-    
+
     .contact-details {
         gap: 1rem;
     }
-    
+
     .contact-item {
         gap: 0.75rem;
     }

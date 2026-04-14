@@ -6,7 +6,7 @@ if (cursor && cursorFollower) {
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-        
+
         setTimeout(() => {
             cursorFollower.style.left = e.clientX + 'px';
             cursorFollower.style.top = e.clientY + 'px';
@@ -27,13 +27,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -61,16 +61,16 @@ const sections = document.querySelectorAll('section');
 
 window.addEventListener('scroll', () => {
     let current = '';
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
+
         if (pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinksItems.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -81,7 +81,7 @@ window.addEventListener('scroll', () => {
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -103,7 +103,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            
+
             // Animate skill bars
             if (entry.target.classList.contains('skill-card')) {
                 const progressBar = entry.target.querySelector('.skill-progress');
@@ -161,21 +161,21 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerHTML;
         const originalBg = btn.style.background;
-        
+
         // Get form data
         const formData = new FormData(contactForm);
         const name = contactForm.querySelector('#name').value.trim();
         const email = contactForm.querySelector('#email').value.trim();
         const message = contactForm.querySelector('#message').value.trim();
-        
+
         // Update button state
         btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
-        
+
         try {
             // Send form data to PHP backend (Vercel serverless function)
             const response = await fetch('/api/send_email.php', {
@@ -189,16 +189,16 @@ if (contactForm) {
                     message: message
                 })
             });
-            
+
             // Get response text first (can only read once)
             const responseText = await response.text();
-            
+
             // Check if response is OK
             if (!response.ok) {
                 console.error('Server response:', responseText);
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             // Try to parse JSON response
             let result;
             try {
@@ -207,15 +207,15 @@ if (contactForm) {
                 console.error('Response text:', responseText);
                 throw new Error('Invalid JSON response from server. Check browser console for details.');
             }
-            
+
             if (result.success) {
                 // Success state
                 btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
                 btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                
+
                 // Reset form
                 contactForm.reset();
-                
+
                 // Reset button after 3 seconds
                 setTimeout(() => {
                     btn.innerHTML = originalText;
@@ -226,10 +226,10 @@ if (contactForm) {
                 // Error state
                 btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
                 btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-                
+
                 // Show error message (you can customize this)
                 alert(result.message || 'Failed to send message. Please try again.');
-                
+
                 // Reset button after 3 seconds
                 setTimeout(() => {
                     btn.innerHTML = originalText;
@@ -242,9 +242,9 @@ if (contactForm) {
             console.error('Error:', error);
             btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
             btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-            
+
             alert('Network error. Please check your connection and try again, or contact me directly at asedaquarshie@gmail.com');
-            
+
             // Reset button after 3 seconds
             setTimeout(() => {
                 btn.innerHTML = originalText;
@@ -259,7 +259,7 @@ if (contactForm) {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const spheres = document.querySelectorAll('.gradient-sphere');
-    
+
     spheres.forEach((sphere, index) => {
         const speed = (index + 1) * 0.1;
         sphere.style.transform = `translateY(${scrolled * speed}px)`;
@@ -279,16 +279,16 @@ if (window.matchMedia('(hover: hover)').matches) {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
-            
+
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.transform = '';
         });
@@ -298,104 +298,104 @@ if (window.matchMedia('(hover: hover)').matches) {
 // Ensure mobile tap opens project links
 // Handle touch events to distinguish taps from scrolls
 // Run when DOM is ready
-(function() {
+(function () {
     const initProjectCards = () => {
         document.querySelectorAll('a.project-card').forEach(card => {
-    const href = card.getAttribute('href');
-    
-    // Only process if it's an external link
-    if (href && !href.startsWith('#')) {
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let touchStartTime = 0;
-        let isScrolling = false;
-        let touchTarget = null;
-        
-        // Track touch start
-        card.addEventListener('touchstart', (e) => {
-            // Don't handle if clicking on case-study-link
-            if (e.target.closest('.case-study-link')) {
-                return;
-            }
-            
-            touchTarget = e.target;
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-            touchStartTime = Date.now();
-            isScrolling = false;
-        }, { passive: true });
-        
-        // Track touch move to detect scrolling
-        card.addEventListener('touchmove', (e) => {
-            if (!touchStartX || !touchStartY) return;
-            
-            const touchCurrentX = e.touches[0].clientX;
-            const touchCurrentY = e.touches[0].clientY;
-            const deltaX = Math.abs(touchCurrentX - touchStartX);
-            const deltaY = Math.abs(touchCurrentY - touchStartY);
-            
-            // If movement is significant, it's a scroll
-            if (deltaX > 10 || deltaY > 10) {
-                isScrolling = true;
-            }
-        }, { passive: true });
-        
-        // Handle touch end - open link if it was a tap, not a scroll
-        card.addEventListener('touchend', (e) => {
-            // Don't handle if clicking on case-study-link
-            if (e.target.closest('.case-study-link') || touchTarget?.closest('.case-study-link')) {
-                touchStartX = 0;
-                touchStartY = 0;
-                touchTarget = null;
-                return;
-            }
-            
-            // If it was a scroll, don't open the link
-            if (isScrolling) {
-                touchStartX = 0;
-                touchStartY = 0;
-                touchTarget = null;
-                return;
-            }
-            
-            // Check if it was a quick tap (less than 500ms)
-            const touchDuration = Date.now() - touchStartTime;
-            if (touchDuration < 500 && touchStartX && touchStartY) {
-                // It's a tap, open the link
-                e.preventDefault();
-                e.stopPropagation();
-                // Try to open in new tab, fallback to same window if blocked
-                const newWindow = window.open(href, '_blank');
-                // If popup blocked, fallback to same window navigation
-                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                    window.location.href = href;
-                }
-            }
-            
-            touchStartX = 0;
-            touchStartY = 0;
-            touchTarget = null;
-        }, { passive: false });
-        
-        // Also handle regular click for desktop and as fallback
-        // This ensures clicks work even if touch events don't fire
-        card.addEventListener('click', (e) => {
-            // Don't handle if clicking on case-study-link
-            if (e.target.closest('.case-study-link')) {
-                return;
-            }
-            // On mobile, if touch events didn't fire, ensure the link works
-            // The default <a> behavior should work, but we ensure it
             const href = card.getAttribute('href');
+
+            // Only process if it's an external link
             if (href && !href.startsWith('#')) {
-                // Allow default behavior - it will open in new tab (target="_blank")
-                // This is a backup in case touch events don't work
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touchStartTime = 0;
+                let isScrolling = false;
+                let touchTarget = null;
+
+                // Track touch start
+                card.addEventListener('touchstart', (e) => {
+                    // Don't handle if clicking on case-study-link
+                    if (e.target.closest('.case-study-link')) {
+                        return;
+                    }
+
+                    touchTarget = e.target;
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                    touchStartTime = Date.now();
+                    isScrolling = false;
+                }, { passive: true });
+
+                // Track touch move to detect scrolling
+                card.addEventListener('touchmove', (e) => {
+                    if (!touchStartX || !touchStartY) return;
+
+                    const touchCurrentX = e.touches[0].clientX;
+                    const touchCurrentY = e.touches[0].clientY;
+                    const deltaX = Math.abs(touchCurrentX - touchStartX);
+                    const deltaY = Math.abs(touchCurrentY - touchStartY);
+
+                    // If movement is significant, it's a scroll
+                    if (deltaX > 10 || deltaY > 10) {
+                        isScrolling = true;
+                    }
+                }, { passive: true });
+
+                // Handle touch end - open link if it was a tap, not a scroll
+                card.addEventListener('touchend', (e) => {
+                    // Don't handle if clicking on case-study-link
+                    if (e.target.closest('.case-study-link') || touchTarget?.closest('.case-study-link')) {
+                        touchStartX = 0;
+                        touchStartY = 0;
+                        touchTarget = null;
+                        return;
+                    }
+
+                    // If it was a scroll, don't open the link
+                    if (isScrolling) {
+                        touchStartX = 0;
+                        touchStartY = 0;
+                        touchTarget = null;
+                        return;
+                    }
+
+                    // Check if it was a quick tap (less than 500ms)
+                    const touchDuration = Date.now() - touchStartTime;
+                    if (touchDuration < 500 && touchStartX && touchStartY) {
+                        // It's a tap, open the link
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Try to open in new tab, fallback to same window if blocked
+                        const newWindow = window.open(href, '_blank');
+                        // If popup blocked, fallback to same window navigation
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                            window.location.href = href;
+                        }
+                    }
+
+                    touchStartX = 0;
+                    touchStartY = 0;
+                    touchTarget = null;
+                }, { passive: false });
+
+                // Also handle regular click for desktop and as fallback
+                // This ensures clicks work even if touch events don't fire
+                card.addEventListener('click', (e) => {
+                    // Don't handle if clicking on case-study-link
+                    if (e.target.closest('.case-study-link')) {
+                        return;
+                    }
+                    // On mobile, if touch events didn't fire, ensure the link works
+                    // The default <a> behavior should work, but we ensure it
+                    const href = card.getAttribute('href');
+                    if (href && !href.startsWith('#')) {
+                        // Allow default behavior - it will open in new tab (target="_blank")
+                        // This is a backup in case touch events don't work
+                    }
+                });
             }
         });
-    }
-    });
     };
-    
+
     // Initialize immediately if DOM is ready, otherwise wait
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initProjectCards);
@@ -422,10 +422,10 @@ const createTypingEffect = (element, texts, speed = 100) => {
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    
+
     const type = () => {
         const currentText = texts[textIndex];
-        
+
         if (isDeleting) {
             element.textContent = currentText.substring(0, charIndex - 1);
             charIndex--;
@@ -433,18 +433,18 @@ const createTypingEffect = (element, texts, speed = 100) => {
             element.textContent = currentText.substring(0, charIndex + 1);
             charIndex++;
         }
-        
+
         if (!isDeleting && charIndex === currentText.length) {
             setTimeout(() => isDeleting = true, 2000);
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             textIndex = (textIndex + 1) % texts.length;
         }
-        
+
         const typeSpeed = isDeleting ? speed / 2 : speed;
         setTimeout(type, typeSpeed);
     };
-    
+
     type();
 };
 
