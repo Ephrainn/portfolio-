@@ -1,6 +1,6 @@
 # Portfolio — Ephraim Aseda Quarshie
 
-A personal portfolio website built with HTML, CSS and JavaScript, plus a small PHP backend for email (PHPMailer). Live demo: https://portfolio-sigma-seven-ty56blwx9d.vercel.app
+A personal portfolio website built with HTML, CSS and JavaScript, plus a small PHP backend for email (PHPMailer). Live demo: https://myportfolio-eaq.vercel.app/
 
 ## Contents
 - `index.html` — main site
@@ -20,9 +20,7 @@ The "Download CV" button previously pointed to `assets/CV.docx` while the file w
 If you prefer to keep all static assets in an `assets/` or `public/` folder, move `CV.docx` there and update `index.html` accordingly.
 
 ## Local development
-1. Clone the repo:
-   git clone https://github.com/EphraimQuarhie/Portfolio.git
-2. Open `index.html` in a browser for a static preview.
+1. Open `index.html` in a browser for a static preview.
 3. If testing email locally, use a PHP server (PHP 8+ recommended):
    php -S localhost:8000
    Then open http://localhost:8000 in your browser.
