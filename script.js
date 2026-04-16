@@ -6,14 +6,12 @@ if (cursor && cursorFollower) {
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-
         setTimeout(() => {
             cursorFollower.style.left = e.clientX + 'px';
             cursorFollower.style.top = e.clientY + 'px';
-        }, 100);
+        }, 80);
     });
 
-    // Cursor hover effect on interactive elements
     const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-card');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => cursorFollower.classList.add('hover'));
@@ -21,21 +19,37 @@ if (cursor && cursorFollower) {
     });
 }
 
+// Page load reveal
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    requestAnimationFrame(() => {
+        document.body.style.opacity = '1';
+    });
+});
+
+// Scroll progress bar
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    if (scrollProgress) scrollProgress.style.width = progress + '%';
+}, { passive: true });
+
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-
     if (currentScroll > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-
     lastScroll = currentScroll;
-});
+}, { passive: true });
 
 // Mobile menu toggle
 const burger = document.querySelector('.burger');
@@ -106,7 +120,7 @@ const observer = new IntersectionObserver((entries) => {
 
             // Animate skill bars
             if (entry.target.classList.contains('skill-card')) {
-                const progressBar = entry.target.querySelector('.skill-progress');
+                const progressBar = entry.target.querySelector('.sk-bar-fill');
                 if (progressBar) {
                     const progress = progressBar.dataset.progress;
                     setTimeout(() => {
@@ -178,7 +192,7 @@ if (contactForm) {
 
         try {
             // Send form data to PHP backend (Vercel serverless function)
-            const response = await fetch('/api/send_email.php', {
+            const response = await fetch('api/send_email.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

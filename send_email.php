@@ -98,7 +98,7 @@ if ($usePHPMailer) {
             $mail->CharSet = 'UTF-8';
 
             // Recipients
-            $mail->setFrom(getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com', 'Portfolio Contact Form');
+            $mail->setFrom(getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com', 'Portfolio');
             $mail->addAddress($to, 'Ephraim Aseda Quarshie');
             $mail->addReplyTo($email, $name);
 

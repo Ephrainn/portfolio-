@@ -10,9 +10,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- Tailwind CDN (for bento grid component) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: { preflight: false },
+            important: '#bento-root'
+        }
+    </script>
+    <!-- React + Babel CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#6366f1,#8b5cf6,#facc15);z-index:9999;transition:width 0.1s linear;"></div>
+
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
@@ -70,9 +85,6 @@
                     <span>View My Work</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
-                <a href="cv.html" class="btn btn-outline">
-                    <span>View CV</span>
-                </a>
                 <a href="CV.docx" class="btn btn-outline" download>
                     <span>Download CV</span>
                     <i class="fas fa-download"></i>
@@ -118,203 +130,107 @@
             <div class="section-header">
                 <span class="section-tag">My Skills</span>
                 <h2 class="section-title">What I <span class="gradient-text">Bring to the Table</span></h2>
-                <p class="scroll-hint"><i class="fas fa-hand-pointer"></i> Swipe to explore</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-card" data-aos="fade-up">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML5</h3>
-                    <p>Semantic, accessible markup that forms the backbone of the web.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <h3>CSS3</h3>
-                    <p>Modern styling with animations, flexbox, and grid layouts.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="90"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Interactive, dynamic functionality that brings sites to life.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>UI Design</h3>
-                    <p>Creating intuitive, beautiful interfaces users love.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="88"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="skill-icon">
-                        <i class="fas fa-keyboard"></i>
-                    </div>
-                    <h3>Proficient Typing</h3>
-                    <p>Fast, accurate typing for efficient development workflow.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="skill-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Artistry</h3>
-                    <p>Creative vision that adds unique flair to every project.</p>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">My Work</span>
-                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-                <p class="scroll-hint"><i class="fas fa-hand-pointer"></i> Swipe to explore</p>
-            </div>
-            <div class="projects-grid">
-                <a href="https://gtvote.xo.je/" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://api.microlink.io/?url=https://gtvote.xo.je/&screenshot=true&meta=false&embed=screenshot.url"
-                            alt="GTVote Preview" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-link"><i class="fas fa-external-link-alt"></i></span>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-yellow"><i class="fab fa-html5"></i></div>
+                        <h3 class="sk-name">HTML5</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="95"></div></div>
                         </div>
                     </div>
-                    <div class="project-info">
-                        <h3>GTVote</h3>
-                        <p>A secure online voting platform for organizations, student elections, and corporate
-                            governance. Every vote matters.</p>
-                        <div class="project-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="https://unistay.gt.tc/" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://api.microlink.io/?url=https://unistay.gt.tc/&screenshot=true&meta=false&embed=screenshot.url"
-                            alt="UniStay Preview" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-link"><i class="fas fa-external-link-alt"></i></span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>UniStay</h3>
-                        <p>A student accommodation platform that helps university students find and book verified
-                            housing near their campus.</p>
-                        <div class="project-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="https://element9.vercel.app/" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://api.microlink.io/?url=https://element9.vercel.app/&screenshot=true&meta=false&embed=screenshot.url"
-                            alt="Element 9 Preview" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-link"><i class="fas fa-external-link-alt"></i></span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Element 9</h3>
-                        <p>A premium sneaker store in Ghana with an online booking system, authentic products, and fast
-                            delivery.</p>
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>Vercel</span>
-                            <span>CSS</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="https://voicepawa.vercel.app/" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://api.microlink.io/?url=https://voicepawa.vercel.app/&screenshot=true&meta=false&embed=screenshot.url"
-                            alt="VoicePawa Preview" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-link"><i class="fas fa-external-link-alt"></i></span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>VoicePawa</h3>
-                        <p>A digital music distribution platform connecting artists to major streaming services
-                            worldwide. Features 100% rights retention, global distribution to Spotify, Apple Music,
-                            YouTube Music, comprehensive marketing services, playlist placement, and brand development.
-                            Empowering artists across 35+ countries since 2020.</p>
-                        <div class="project-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>Vercel</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
 
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-blue"><i class="fab fa-css3-alt"></i></div>
+                        <h3 class="sk-name">CSS3</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="90"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-yellow"><i class="fab fa-js"></i></div>
+                        <h3 class="sk-name">JavaScript</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="85"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-cyan"><i class="fas fa-palette"></i></div>
+                        <h3 class="sk-name">UI Design</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="88"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-green"><i class="fas fa-keyboard"></i></div>
+                        <h3 class="sk-name">Proficient Typing</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="95"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-orange"><i class="fas fa-paint-brush"></i></div>
+                        <h3 class="sk-name">Artistry</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="85"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-blue"><i class="fab fa-php"></i></div>
+                        <h3 class="sk-name">PHP</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="70"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="sk-icon-wrap sk-color-cyan"><i class="fas fa-database"></i></div>
+                        <h3 class="sk-name">MySQL</h3>
+                        <div class="sk-bar-wrap">
+                            <div class="sk-bar-header"><span>Proficiency</span></div>
+                            <div class="sk-bar"><div class="sk-bar-fill" data-progress="70"></div></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
 
-    <section id="case-study" class="case-study">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Case Study</span>
-                <h2 class="section-title">GTVote: Streamlined University Elections</h2>
-            </div>
-            <div class="case-study-content">
-                <p>GTVote simplifies and streamlines university elections by replacing manual, in-person voting
-                    processes with a secure, transparent online system.</p>
-                <div class="case-study-grid">
-                    <div class="case-block">
-                        <h3>The Problem</h3>
-                        <ul>
-                            <li>In-person voting can enable cheating and ballot tampering.</li>
-                            <li>Long queues and conflicts reduce participation and trust.</li>
-                            <li>Manual counting introduces delays and human error.</li>
-                        </ul>
-                    </div>
-                    <div class="case-block">
-                        <h3>The Solution</h3>
-                        <ul>
-                            <li>Verified voter authentication and unique ballots.</li>
-                            <li>Encrypted vote storage with tamper-proof records.</li>
-                            <li>Real-time results with audit trails for transparency.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="case-outcomes">
-                    <h3>Impact</h3>
-                    <ul>
-                        <li>Eliminates opportunities for cheating and manipulation.</li>
-                        <li>Reduces logistical overhead and prevents conflicts.</li>
-                        <li>Accelerates result publication and improves confidence.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <section id="projects" style="background:#020617; padding: 4rem 0;">
+        <div id="bento-root"></div>
+    </section>
+
+    <section id="case-study" style="background:#020617; padding: 0;">
+        <div id="case-study-root"></div>
     </section>
 
     <section id="contact" class="contact">
@@ -387,6 +303,302 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
+
+    <!-- Bento Grid + Case Study React Components -->
+    <script type="text/babel">
+    const { useState } = React;
+
+    const ExternalLink = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+    );
+    const Code2 = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    );
+    const Zap = ({size=16,fill="none",className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    );
+    const Globe = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    );
+    const Mail = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    );
+    const AlertTriangle = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    );
+    const CheckCircle = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    );
+    const TrendingUp = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+    );
+    const Shield = ({size=16,className=""}) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    );
+
+    const projects = [
+      { id:1, title:"GTVote", category:"VOTING SYSTEM", description:"Secure online voting platform for student elections and corporate governance.", tags:["HTML","CSS","JS"], image:"https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&q=80&w=800", link:"https://gtvote.xo.je/" },
+      { id:2, title:"UniStay", category:"ACCOMMODATION", description:"Verified university housing platform near campuses.", tags:["HTML","CSS"], image:"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=600", link:"https://unistay.gt.tc/" },
+      { id:3, title:"Element 9", category:"E-COMMERCE", description:"Premium sneaker store in Ghana with online booking.", tags:["React","Vercel"], image:"https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=600", link:"https://element9.vercel.app/" },
+      { id:4, title:"VoicePawa", category:"MUSIC DISTRO", description:"Digital music distribution to 35+ countries worldwide.", tags:["React","JS"], image:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=600", link:"https://voicepawa.vercel.app/" }
+    ];
+
+    const Tag = ({label}) => (
+      <span style={{padding:'0.2rem 0.55rem',borderRadius:'999px',fontSize:'0.62rem',fontWeight:800,letterSpacing:'0.06em',textTransform:'uppercase',background:'rgba(255,255,255,0.1)',backdropFilter:'blur(8px)',border:'1px solid rgba(255,255,255,0.15)',color:'#c7d2fe',display:'inline-block'}}>{label}</span>
+    );
+
+    const BentoApp = () => (
+      <div style={{background:'#020617',padding:'4rem 1.25rem 2.5rem'}}>
+        <div style={{textAlign:'center',marginBottom:'2.5rem'}}>
+          <span style={{display:'inline-block',padding:'0.4rem 1.2rem',background:'rgba(99,102,241,0.12)',border:'1px solid rgba(99,102,241,0.3)',borderRadius:'999px',fontSize:'0.72rem',fontWeight:800,color:'#818cf8',textTransform:'uppercase',letterSpacing:'0.15em'}}>My Work</span>
+          <h2 style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:'clamp(1.8rem,5vw,2.8rem)',fontWeight:900,color:'#fff',marginTop:'0.75rem',letterSpacing:'-0.03em',lineHeight:1.1}}>
+            Featured <span style={{background:'linear-gradient(135deg,#6366f1,#a78bfa)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>Projects</span>
+          </h2>
+        </div>
+        <div className="bp-grid">
+
+          {/* Hero GTVote */}
+          <a href={projects[0].link} target="_blank" rel="noreferrer" className="bp-hero group">
+            <img src={projects[0].image} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={projects[0].title}/>
+            <div className="absolute inset-0" style={{background:'linear-gradient(to top,rgba(2,6,23,0.98) 0%,rgba(2,6,23,0.65) 55%,rgba(2,6,23,0.3) 100%)'}}/>
+            <div className="absolute inset-0 p-6 flex flex-col justify-end">
+              <div className="flex flex-wrap gap-1.5 mb-2">{projects[0].tags.map(t=><Tag key={t} label={t}/>)}</div>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-indigo-400 mb-1">{projects[0].category}</p>
+              <h3 className="text-3xl font-black tracking-tighter text-white leading-none mb-1.5">{projects[0].title}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed max-w-sm">{projects[0].description}</p>
+            </div>
+            <div className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-xl transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:scale-110">
+              <ExternalLink size={17}/>
+            </div>
+          </a>
+
+          {/* Stat */}
+          {/* UniStay */}
+          <a href={projects[1].link} target="_blank" rel="noreferrer" className="bp-mini group">
+            <img src={projects[1].image} className="absolute inset-0 w-full h-full object-cover opacity-35 grayscale group-hover:grayscale-0 group-hover:opacity-65 transition-all duration-500" alt=""/>
+            <div className="absolute inset-0" style={{background:'linear-gradient(to top,rgba(2,6,23,0.92) 0%,transparent 100%)'}}/>
+            <div className="absolute inset-0 p-4 flex flex-col justify-end">
+              <p className="text-[8px] font-black uppercase tracking-widest text-indigo-400 mb-0.5">{projects[1].category}</p>
+              <h3 className="font-black text-sm tracking-tight text-white leading-tight">{projects[1].title}</h3>
+              <p className="text-[10px] text-slate-400 mt-1 leading-snug line-clamp-2">{projects[1].description}</p>
+            </div>
+            <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-all group-hover:bg-indigo-500 group-hover:border-indigo-500">
+              <ExternalLink size={11} className="text-white"/>
+            </div>
+          </a>
+
+          {/* Tech Stack */}
+          <div className="bp-stack">
+            <div className="flex -space-x-3 mb-3">
+              {[{bg:'#eab308',color:'#000',label:'JS'},{bg:'#3b82f6',color:'#fff',label:'R'},{bg:'#f97316',color:'#fff',label:'H'},{bg:'#334155',color:'#fff',label:<Code2 size={13}/>}].map((s,i)=>(
+                <div key={i} className="w-10 h-10 rounded-full border-4 border-slate-900 flex items-center justify-center text-xs font-black shadow-xl" style={{background:s.bg,color:s.color,zIndex:4-i}}>{s.label}</div>
+              ))}
+            </div>
+            <p className="text-[9px] uppercase font-black tracking-[0.2em] text-slate-500">My Stack</p>
+          </div>
+
+          {/* VoicePawa tall */}
+          <a href={projects[3].link} target="_blank" rel="noreferrer" className="bp-tall group">
+            <img src={projects[3].image} className="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:opacity-65 transition-opacity duration-500" alt=""/>
+            <div className="absolute inset-0" style={{background:'linear-gradient(to top,rgba(2,6,23,0.97) 0%,rgba(2,6,23,0.15) 60%,transparent 100%)'}}/>
+            <div className="absolute inset-0 p-5 flex flex-col justify-end">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style={{background:'rgba(168,85,247,0.2)',border:'1px solid rgba(168,85,247,0.35)'}}>
+                <Globe size={16} className="text-purple-400"/>
+              </div>
+              <p className="text-[8px] font-black uppercase tracking-widest text-purple-400 mb-1">{projects[3].category}</p>
+              <h3 className="font-black text-lg leading-tight text-white mb-1.5">{projects[3].title}</h3>
+              <p className="text-[10px] text-slate-400 leading-relaxed">{projects[3].description}</p>
+            </div>
+            <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-all group-hover:bg-purple-500 group-hover:border-purple-500">
+              <ExternalLink size={11} className="text-white"/>
+            </div>
+          </a>
+
+          {/* Element 9 */}
+          <a href={projects[2].link} target="_blank" rel="noreferrer" className="bp-mini group">
+            <img src={projects[2].image} className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 transition-opacity duration-500" alt=""/>
+            <div className="absolute inset-0" style={{background:'linear-gradient(to top,rgba(2,6,23,0.92) 0%,transparent 100%)'}}/>
+            <div className="absolute inset-0 p-4 flex flex-col justify-end">
+              <p className="text-[8px] font-black uppercase tracking-widest text-orange-400 mb-0.5">{projects[2].category}</p>
+              <h3 className="font-black text-sm tracking-tight text-white leading-tight">{projects[2].title}</h3>
+              <div className="flex gap-1 mt-1.5 flex-wrap">{projects[2].tags.map(t=><Tag key={t} label={t}/>)}</div>
+            </div>
+            <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-all group-hover:bg-orange-500 group-hover:border-orange-500">
+              <ExternalLink size={11} className="text-white"/>
+            </div>
+          </a>
+
+          {/* CTA */}
+          <a href="#contact" className="bp-cta group">
+            <div className="relative z-10">
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-black/40 mb-1">Available for work</p>
+              <h3 className="text-xl font-black tracking-tighter text-black leading-tight">Let's build something<br/>great together.</h3>
+            </div>
+            <div className="relative z-10 flex items-center gap-3">
+              <span className="text-xs font-bold text-black/50 hidden md:block">asedaquarshie@gmail.com</span>
+              <div className="bg-black rounded-3xl flex items-center justify-center text-white shadow-xl transition-all group-hover:bg-indigo-600 group-hover:scale-110" style={{width:'3.25rem',height:'3.25rem'}}>
+                <Mail size={20}/>
+              </div>
+            </div>
+            <div className="absolute -right-8 -bottom-8 w-40 h-40 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150" style={{background:'rgba(99,102,241,0.18)'}}/>
+          </a>
+
+        </div>
+      </div>
+    );
+
+    /* ── CASE STUDY BENTO ── */
+    const CaseStudyBento = () => {
+      const [expanded, setExpanded] = React.useState(false);
+
+      const problems = [
+        { n:"01", text:"In-person voting enables cheating & ballot tampering" },
+        { n:"02", text:"Long queues reduce participation and erode trust" },
+        { n:"03", text:"Manual counting introduces delays and human error" },
+      ];
+      const solutions = [
+        { n:"01", text:"Verified voter authentication with unique one-time ballots" },
+        { n:"02", text:"Encrypted vote storage with tamper-proof audit records" },
+        { n:"03", text:"Real-time results dashboard with full transparency" },
+      ];
+      const stats = [
+        { value:"100%", label:"Fraud Eliminated",    color:"#818cf8" },
+        { value:"10×",  label:"Faster Results",      color:"#34d399" },
+        { value:"3×",   label:"More Participation",  color:"#facc15" },
+        { value:"0",    label:"Disputes Filed",      color:"#f87171" },
+      ];
+
+      return (
+        <div className="cs-wrap">
+          {/* ── Section label ── */}
+          <div className="cs-header">
+            <span className="cs-tag">Case Study</span>
+            <h2 className="cs-title">
+              GTVote<span className="cs-title-accent">.</span>
+            </h2>
+            <p className="cs-subtitle">Streamlining university elections through secure digital infrastructure</p>
+          </div>
+
+          {/* ── Hero card ── */}
+          <div className="cs-hero-card">
+            <div className="cs-hero-left">
+              <img
+                src="https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&q=80&w=900"
+                alt="GTVote"
+                className="cs-hero-img"
+              />
+              <div className="cs-hero-img-overlay"/>
+            </div>
+            <div className="cs-hero-right">
+              <div className="cs-hero-meta">
+                <span className="cs-hero-tag">Featured</span>
+                <a href="https://gtvote.xo.je/" target="_blank" rel="noreferrer" className="cs-live-btn">
+                  View Live <ExternalLink size={11}/>
+                </a>
+              </div>
+              <h3 className="cs-hero-name">GTVote</h3>
+              <p className="cs-hero-desc">
+                GTVote replaces manual, in-person university elections with a secure, transparent online platform — eliminating fraud, cutting result times by 10×, and tripling voter participation.
+              </p>
+              <div className="cs-tech-row">
+                {["HTML","CSS","JavaScript","PHP","Secure Auth"].map(t=>(
+                  <span key={t} className="cs-tech-pill">{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Read more bar ── */}
+          <button className="cs-toggle" onClick={()=>setExpanded(!expanded)}>
+            <span className="cs-toggle-line"/>
+            <span className="cs-toggle-pill">
+              {expanded ? 'Show Less' : 'Read Full Case Study'}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                style={{transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)', transition:'transform 0.3s ease'}}>
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+            <span className="cs-toggle-line"/>
+          </button>
+
+          {/* ── Expandable details ── */}
+          <div className="cs-details" style={{maxHeight: expanded ? '4000px' : '0', opacity: expanded ? 1 : 0}}>
+
+            {/* Stats strip */}
+            <div className="cs-stats-row">
+              {stats.map((s,i)=>(
+                <div key={i} className="cs-stat">
+                  <span className="cs-stat-val" style={{color:s.color}}>{s.value}</span>
+                  <span className="cs-stat-lbl">{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Problem / Solution columns */}
+            <div className="cs-ps-grid">
+              <div className="cs-ps-card cs-problem">
+                <div className="cs-ps-header">
+                  <span className="cs-ps-dot" style={{background:'#f87171'}}/>
+                  <span className="cs-ps-label" style={{color:'#f87171'}}>The Problem</span>
+                </div>
+                {problems.map((p,i)=>(
+                  <div key={i} className="cs-ps-item">
+                    <span className="cs-ps-num" style={{color:'rgba(248,113,113,0.4)'}}>{p.n}</span>
+                    <span className="cs-ps-text">{p.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="cs-ps-divider">
+                <div className="cs-ps-divider-line"/>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                </svg>
+                <div className="cs-ps-divider-line"/>
+              </div>
+
+              <div className="cs-ps-card cs-solution">
+                <div className="cs-ps-header">
+                  <span className="cs-ps-dot" style={{background:'#34d399'}}/>
+                  <span className="cs-ps-label" style={{color:'#34d399'}}>The Solution</span>
+                </div>
+                {solutions.map((s,i)=>(
+                  <div key={i} className="cs-ps-item">
+                    <span className="cs-ps-num" style={{color:'rgba(52,211,153,0.4)'}}>{s.n}</span>
+                    <span className="cs-ps-text">{s.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Impact strip */}
+            <div className="cs-impact-strip">
+              <div className="cs-impact-label">
+                <TrendingUp size={15} className="text-indigo-400"/>
+                <span>Impact</span>
+              </div>
+              <div className="cs-impact-items">
+                {[
+                  "Eliminates cheating & ballot manipulation entirely",
+                  "Reduces logistical overhead and prevents conflicts",
+                  "Accelerates result publication and builds voter confidence",
+                ].map((item,i)=>(
+                  <div key={i} className="cs-impact-item">
+                    <CheckCircle size={13} style={{color:'#34d399',flexShrink:0}}/>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('bento-root')).render(<BentoApp />);
+    ReactDOM.createRoot(document.getElementById('case-study-root')).render(<CaseStudyBento />);
+    </script>
 </body>
 
 </html>

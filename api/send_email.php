@@ -107,16 +107,20 @@ if ($usePHPMailer) {
         try {
             // Server settings
             $mail->isSMTP();
+            $mail->SMTPDebug = 2; // Enable verbose debug output
+            $mail->Debugoutput = function($str, $level) {
+                error_log("PHPMailer: $str");
+            };
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com';
-            $mail->Password = getenv('GMAIL_PASS') ?: '';
+            $mail->Username = 'asedaquarshie@gmail.com';
+            $mail->Password = 'tqho efyo buta peze';
             $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
             $mail->CharSet = 'UTF-8';
 
             // Recipients
-            $mail->setFrom(getenv('GMAIL_USER') ?: 'asedaquarshie@gmail.com', 'Portfolio Contact Form');
+            $mail->setFrom('asedaquarshie@gmail.com', 'Portfolio');
             $mail->addAddress($to, 'Ephraim Aseda Quarshie');
             $mail->addReplyTo($email, $name);
 
@@ -137,8 +141,11 @@ if ($usePHPMailer) {
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'message' => 'Sorry, there was an error sending your message: ' . $mail->ErrorInfo,
-                'error' => $e->getMessage()
+                'message' => 'SMTP Error: ' . $mail->ErrorInfo,
+                'exception' => $e->getMessage(),
+                'phpmailer_path' => $phpmailerPath,
+                'openssl' => extension_loaded('openssl') ? 'yes' : 'NO - missing!',
+                'php_version' => phpversion()
             ]);
             exit;
         }
@@ -147,7 +154,9 @@ if ($usePHPMailer) {
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Email service configuration error. Please contact me directly at asedaquarshie@gmail.com'
+            'message' => 'PHPMailer not found',
+            'looked_at' => $phpmailerPath,
+            'dir' => __DIR__
         ]);
         exit;
     }
