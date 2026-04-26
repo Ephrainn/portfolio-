@@ -13,7 +13,6 @@ if (cursor && cursorFollower) {
         }, 100);
     });
 
-    // Cursor hover effect on interactive elements
     const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-card');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => cursorFollower.classList.add('hover'));
@@ -156,100 +155,99 @@ if (aboutStats) {
     statsObserver.observe(aboutStats);
 }
 
+// Google Forms Configuration
+// Steps to set up:
+// 1. Create a Google Form at https://forms.google.com with 3 fields: Name, Email, Message
+// 2. Click ⋮ menu → "Get pre-filled link", fill dummy values, click "Get link"
+// 3. From the generated URL, copy the form ID and entry IDs and paste them below
+const GOOGLE_FORM_CONFIG = {
+    formId: '1FAIpQLSehSSBs6zzIs6H-GXQHXz2YB3dMqwzdhDkHOiN6BhyqS75-Vg',
+    nameEntry: 'entry.1622627165',
+    emailEntry: 'entry.727187113',
+    messageEntry: 'entry.1496809360'
+};
+
 // Form handling
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerHTML;
         const originalBg = btn.style.background;
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = contactForm.querySelector('#name').value.trim();
-        const email = contactForm.querySelector('#email').value.trim();
-        const message = contactForm.querySelector('#message').value.trim();
-        
+
+        // Get form values
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Validate form
+        if (!name || !email || !message) {
+            btn.innerHTML = '<span>Please fill all fields</span><i class="fas fa-exclamation-triangle"></i>';
+            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = originalBg;
+            }, 3000);
+            return;
+        }
+
+        // Check if Google Form is configured
+        if (GOOGLE_FORM_CONFIG.formId === 'YOUR_FORM_ID') {
+            btn.innerHTML = '<span>Form not configured</span><i class="fas fa-exclamation-triangle"></i>';
+            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = originalBg;
+            }, 3000);
+            return;
+        }
+
         // Update button state
         btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
-        
+
         try {
-            // Send form data to PHP backend
-            const response = await fetch('send_email.php', {
+            // Build the Google Forms submission URL
+            const formUrl = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_CONFIG.formId}/formResponse`;
+            const formData = new FormData();
+            formData.append(GOOGLE_FORM_CONFIG.nameEntry, name);
+            formData.append(GOOGLE_FORM_CONFIG.emailEntry, email);
+            formData.append(GOOGLE_FORM_CONFIG.messageEntry, message);
+
+            // Submit via no-cors (Google Forms blocks CORS, so we fire-and-forget)
+            await fetch(formUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    name: name,
-                    email: email,
-                    message: message
-                })
+                mode: 'no-cors',
+                body: formData
             });
-            
-            // Get response text first (can only read once)
-            const responseText = await response.text();
-            
-            // Check if response is OK
-            if (!response.ok) {
-                console.error('Server response:', responseText);
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            // Try to parse JSON response
-            let result;
-            try {
-                result = JSON.parse(responseText);
-            } catch (parseError) {
-                console.error('Response text:', responseText);
-                throw new Error('Invalid JSON response from server. Check browser console for details.');
-            }
-            
-            if (result.success) {
-                // Success state
-                btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = originalBg;
-                    btn.disabled = false;
-                }, 3000);
-            } else {
-                // Error state
-                btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
-                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-                
-                // Show error message (you can customize this)
-                alert(result.message || 'Failed to send message. Please try again.');
-                
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = originalBg;
-                    btn.disabled = false;
-                }, 3000);
-            }
-        } catch (error) {
-            // Network or other error
-            console.error('Error:', error);
-            btn.innerHTML = '<span>Error</span><i class="fas fa-exclamation-triangle"></i>';
-            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-            
-            alert('Network error. Please check your connection and try again, or contact me directly at asedaquarshie@gmail.com');
-            
-            // Reset button after 3 seconds
+
+            // Success state (no-cors means we can't read the response, but submission works)
+            btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
+            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+
+            // Reset form after 2 seconds
             setTimeout(() => {
                 btn.innerHTML = originalText;
                 btn.style.background = originalBg;
                 btn.disabled = false;
+                contactForm.reset();
+            }, 2000);
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+
+            // Error state
+            btn.innerHTML = '<span>Failed to send</span><i class="fas fa-exclamation-triangle"></i>';
+            btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            btn.disabled = false;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = originalBg;
             }, 3000);
         }
     });
